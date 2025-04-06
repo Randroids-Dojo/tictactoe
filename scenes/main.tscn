@@ -1,0 +1,168 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj8gqdcxxue5e"]
+
+[ext_resource type="Script" uid="uid://coj8y2xv62k3w" path="res://scripts/main.gd" id="1_xmdeu"]
+[ext_resource type="Script" uid="uid://bj81r3s646be7" path="res://scripts/camera_controller.gd" id="3_bqtdx"]
+
+[sub_resource type="Environment" id="Environment_f0xo7"]
+background_mode = 1
+background_color = Color(0.141176, 0.141176, 0.219608, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.333333, 0.333333, 0.498039, 1)
+glow_enabled = true
+glow_intensity = 0.2
+glow_bloom = 0.1
+fog_enabled = true
+fog_light_color = Color(0.215686, 0.215686, 0.333333, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0p2x"]
+bg_color = Color(0.0784314, 0.0784314, 0.137255, 0.933333)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_xmdeu")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f0xo7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 5, 8)
+script = ExtResource("3_bqtdx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0.433013, -0.25, 0, 0.5, 0.866025, 0.5, -0.75, 0.433013, 0, 5, 0)
+light_energy = 2.0
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 20.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 12, 0)
+light_color = Color(0.980392, 0.921569, 0.803922, 1)
+light_energy = 8.0
+shadow_enabled = true
+spot_range = 20.0
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderPanel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g0p2x")
+
+[node name="Label" type="Label" parent="UI/HeaderPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.878431, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "3D Tic Tac Toe - Current Turn: X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FooterPanel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -70.0
+offset_right = 75.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g0p2x")
+
+[node name="ResetButton" type="Button" parent="UI/FooterPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -15.0
+offset_right = 48.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(1, 1, 0.631373, 1)
+theme_override_colors/font_color = Color(0.909804, 0.909804, 1, 1)
+text = "Reset Game"
+
+[node name="InfoPanel" type="Panel" parent="UI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -293.0
+offset_top = -90.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_g0p2x")
+
+[node name="InfoLabel" type="Label" parent="UI/InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.878431, 1, 1)
+text = "Controls:
+- Click: Make move
+- Right drag: Rotate view
+- Wheel/Pinch: Zoom
+- Alt+Trackpad: Rotate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WinLabel" type="Label" parent="UI"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "Game Over - X Wins!"
+horizontal_alignment = 1
+vertical_alignment = 1
