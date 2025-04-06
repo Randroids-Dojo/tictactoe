@@ -1,6 +1,9 @@
 # 3D Tic Tac Toe
 
+A fully Claude Code generated game.
 A simplified 3D implementation of the classic Tic Tac Toe game using Godot Engine 4.4.
+
+![Screenshot](<screenshot.png>)
 
 ## Features
 
